@@ -2523,3 +2523,331 @@ Processing by ClientsController#index as HTML
 Completed 200 OK in 12ms (Views: 7.3ms | ActiveRecord: 1.4ms (3 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/contracts" for 127.0.0.1 at 2026-02-14 19:47:17 -0300
+DEPRECATION WARNING: resource received a hash argument only. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path_names. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument controller. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+Processing by ContractsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering contracts/index.html.erb within layouts/admin
+  [1m[36mContract Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "contracts" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:23
+  [1m[36mContract Load (1.0ms)[0m  [1m[34mSELECT "contracts".* FROM "contracts" ORDER BY "contracts"."created_at" DESC /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mProperty Load (0.6ms)[0m  [1m[34mSELECT "properties".* FROM "properties" WHERE "properties"."id" IN (5, 2, 1) /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mClient Load (0.7ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (2, 1) /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mClient Load (0.7ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 3 /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mClient Load (0.6ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (5, 4) /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  Rendered contracts/index.html.erb within layouts/admin (Duration: 83.0ms | GC: 1.4ms)
+  Rendered layout layouts/admin.html.erb (Duration: 93.4ms | GC: 2.2ms)
+Completed 200 OK in 129ms (Views: 80.5ms | ActiveRecord: 24.1ms (7 queries, 0 cached) | GC: 3.0ms)
+
+
+Started GET "/properties" for 127.0.0.1 at 2026-02-14 19:47:17 -0300
+Processing by PropertiesController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering properties/index.html.erb within layouts/admin
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "properties" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:22
+  [1m[36mProperty Load (0.6ms)[0m  [1m[34mSELECT "properties".* FROM "properties" ORDER BY "properties"."title" ASC /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mClient Load (1.3ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (2, 1, 5) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mCep Load (0.5ms)[0m  [1m[34mSELECT "ceps".* FROM "ceps" WHERE "ceps"."id" IN (18, 11, 13, 17, 12) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mNeighborhood Load (0.8ms)[0m  [1m[34mSELECT "neighborhoods".* FROM "neighborhoods" WHERE "neighborhoods"."id" IN (12, 11, 13, 17, 18) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mCity Load (0.4ms)[0m  [1m[34mSELECT "cities".* FROM "cities" WHERE "cities"."id" IN (11, 13) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mState Load (1.2ms)[0m  [1m[34mSELECT "states".* FROM "states" WHERE "states"."id" IN (52, 46) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  Rendered properties/index.html.erb within layouts/admin (Duration: 74.3ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 77.3ms | GC: 0.0ms)
+Completed 200 OK in 84ms (Views: 59.8ms | ActiveRecord: 18.8ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/properties" for 127.0.0.1 at 2026-02-14 19:47:41 -0300
+DEPRECATION WARNING: resource received a hash argument only. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path_names. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument controller. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+Processing by PropertiesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering properties/index.html.erb within layouts/admin
+  [1m[36mProperty Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "properties" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:22
+  [1m[36mProperty Load (0.7ms)[0m  [1m[34mSELECT "properties".* FROM "properties" ORDER BY "properties"."title" ASC /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mClient Load (0.5ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (2, 1, 5) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mCep Load (0.6ms)[0m  [1m[34mSELECT "ceps".* FROM "ceps" WHERE "ceps"."id" IN (18, 11, 13, 17, 12) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mNeighborhood Load (0.4ms)[0m  [1m[34mSELECT "neighborhoods".* FROM "neighborhoods" WHERE "neighborhoods"."id" IN (12, 11, 13, 17, 18) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mCity Load (0.7ms)[0m  [1m[34mSELECT "cities".* FROM "cities" WHERE "cities"."id" IN (11, 13) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mState Load (0.6ms)[0m  [1m[34mSELECT "states".* FROM "states" WHERE "states"."id" IN (52, 46) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  Rendered properties/index.html.erb within layouts/admin (Duration: 108.0ms | GC: 2.7ms)
+  Rendered layout layouts/admin.html.erb (Duration: 115.8ms | GC: 2.7ms)
+Completed 200 OK in 144ms (Views: 95.1ms | ActiveRecord: 29.6ms (8 queries, 0 cached) | GC: 3.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-02-14 19:47:51 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ForgeImobiliaria'*/[0m
+DEPRECATION WARNING: resource received a hash argument only. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path_names. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument controller. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+Processing by DashboardController#index as HTML
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  [1m[36mClient Count (1.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:3:in 'DashboardController#index'
+  [1m[36mProperty Count (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:4:in 'DashboardController#index'
+  [1m[36mContract Count (3.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:5:in 'DashboardController#index'
+  [1m[36mPayment Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "payments" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:6:in 'DashboardController#index'
+  [1m[36mContract Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:8:in 'DashboardController#index'
+  [1m[36mContract Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' AND "contracts"."contract_type" = 'sale' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:9:in 'DashboardController#index'
+  [1m[36mContract Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' AND "contracts"."contract_type" = 'rent' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:10:in 'DashboardController#index'
+  [1m[36mProperty Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" WHERE "properties"."is_for_sale" = TRUE /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:12:in 'DashboardController#index'
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" WHERE "properties"."is_for_rent" = TRUE /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:13:in 'DashboardController#index'
+  [1m[36mPayment Sum (5.5ms)[0m  [1m[34mSELECT SUM("payments"."amount") FROM "payments" WHERE "payments"."payment_date" BETWEEN '2026-02-01' AND '2026-02-28' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:18:in 'DashboardController#index'
+  [1m[36mPayment Sum (1.0ms)[0m  [1m[34mSELECT SUM("payments"."amount") FROM "payments" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:21:in 'DashboardController#index'
+  Rendering layout layouts/admin.html.erb
+  Rendering dashboard/index.html.erb within layouts/admin
+  Rendered dashboard/index.html.erb within layouts/admin (Duration: 6.4ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 6.8ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 187ms (ActiveRecord: 96.9ms (12 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (Translation missing: pt-BR.date.formats.long)
+Caused by: I18n::MissingTranslationData (Translation missing: pt-BR.date.formats.long)
+
+Information for: ActionView::Template::Error (Translation missing: pt-BR.date.formats.long):
+    3: <div class="d-flex justify-content-between align-items-center mb-4">
+    4:   <h1 class="h3 mb-0">Dashboard</h1>
+    5:   <span class="text-muted small"><%= l(Date.current, format: :long) %></span>
+    6: </div>
+    7: 
+    8: <%# KPIs principais %>
+    9: <div class="row g-3 mb-4">
+  
+app/views/dashboard/index.html.erb:6
+
+Information for cause: I18n::MissingTranslationData (Translation missing: pt-BR.date.formats.long):
+  
+app/views/dashboard/index.html.erb:6
+Started GET "/properties" for 127.0.0.1 at 2026-02-14 19:47:52 -0300
+Processing by PropertiesController#index as HTML
+  [1m[36mUser Load (4.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering properties/index.html.erb within layouts/admin
+  [1m[36mProperty Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "properties" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:22
+  [1m[36mProperty Load (3.7ms)[0m  [1m[34mSELECT "properties".* FROM "properties" ORDER BY "properties"."title" ASC /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mClient Load (5.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (2, 1, 5) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mCep Load (1.6ms)[0m  [1m[34mSELECT "ceps".* FROM "ceps" WHERE "ceps"."id" IN (18, 11, 13, 17, 12) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mNeighborhood Load (1.9ms)[0m  [1m[34mSELECT "neighborhoods".* FROM "neighborhoods" WHERE "neighborhoods"."id" IN (12, 11, 13, 17, 18) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mCity Load (4.6ms)[0m  [1m[34mSELECT "cities".* FROM "cities" WHERE "cities"."id" IN (11, 13) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  [1m[36mState Load (2.4ms)[0m  [1m[34mSELECT "states".* FROM "states" WHERE "states"."id" IN (52, 46) /*action='index',application='ForgeImobiliaria',controller='properties'*/[0m
+  ↳ app/views/properties/index.html.erb:23
+  Rendered properties/index.html.erb within layouts/admin (Duration: 257.5ms | GC: 54.3ms)
+  Rendered layout layouts/admin.html.erb (Duration: 316.0ms | GC: 56.1ms)
+Completed 200 OK in 381ms (Views: 225.8ms | ActiveRecord: 98.3ms (8 queries, 0 cached) | GC: 85.4ms)
+
+
+Started GET "/clients" for 127.0.0.1 at 2026-02-14 19:47:52 -0300
+Processing by ClientsController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering clients/index.html.erb within layouts/admin
+  [1m[36mClient Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  ↳ app/views/clients/index.html.erb:21
+  [1m[36mClient Load (1.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" ORDER BY "clients"."name" ASC /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  ↳ app/views/clients/index.html.erb:22
+  Rendered clients/index.html.erb within layouts/admin (Duration: 9.1ms | GC: 0.9ms)
+  Rendered layout layouts/admin.html.erb (Duration: 11.3ms | GC: 0.9ms)
+Completed 200 OK in 20ms (Views: 10.5ms | ActiveRecord: 2.2ms (3 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/clients" for 127.0.0.1 at 2026-02-14 19:47:53 -0300
+Processing by ClientsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering clients/index.html.erb within layouts/admin
+  [1m[36mClient Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  ↳ app/views/clients/index.html.erb:21
+  [1m[36mClient Load (0.5ms)[0m  [1m[34mSELECT "clients".* FROM "clients" ORDER BY "clients"."name" ASC /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  ↳ app/views/clients/index.html.erb:22
+  Rendered clients/index.html.erb within layouts/admin (Duration: 7.0ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 10.0ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 9.8ms | ActiveRecord: 1.6ms (3 queries, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/clients" for 127.0.0.1 at 2026-02-14 19:47:55 -0300
+Processing by ClientsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering clients/index.html.erb within layouts/admin
+  [1m[36mClient Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "clients" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  ↳ app/views/clients/index.html.erb:21
+  [1m[36mClient Load (0.4ms)[0m  [1m[34mSELECT "clients".* FROM "clients" ORDER BY "clients"."name" ASC /*action='index',application='ForgeImobiliaria',controller='clients'*/[0m
+  ↳ app/views/clients/index.html.erb:22
+  Rendered clients/index.html.erb within layouts/admin (Duration: 6.9ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 10.3ms | GC: 0.7ms)
+Completed 200 OK in 16ms (Views: 10.0ms | ActiveRecord: 1.7ms (3 queries, 0 cached) | GC: 0.7ms)
+
+
+Removed sourceMappingURL comment for missing asset 'coreui.bundle.min.js.map' from coreui.bundle.min.js
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-02-14 19:47:55 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/" for 127.0.0.1 at 2026-02-14 19:47:56 -0300
+Processing by DashboardController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  [1m[36mClient Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:3:in 'DashboardController#index'
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:4:in 'DashboardController#index'
+  [1m[36mContract Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:5:in 'DashboardController#index'
+  [1m[36mPayment Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "payments" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:6:in 'DashboardController#index'
+  [1m[36mContract Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:8:in 'DashboardController#index'
+  [1m[36mContract Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' AND "contracts"."contract_type" = 'sale' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:9:in 'DashboardController#index'
+  [1m[36mContract Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' AND "contracts"."contract_type" = 'rent' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:10:in 'DashboardController#index'
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" WHERE "properties"."is_for_sale" = TRUE /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:12:in 'DashboardController#index'
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" WHERE "properties"."is_for_rent" = TRUE /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:13:in 'DashboardController#index'
+  [1m[36mPayment Sum (0.6ms)[0m  [1m[34mSELECT SUM("payments"."amount") FROM "payments" WHERE "payments"."payment_date" BETWEEN '2026-02-01' AND '2026-02-28' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:18:in 'DashboardController#index'
+  [1m[36mPayment Sum (0.5ms)[0m  [1m[34mSELECT SUM("payments"."amount") FROM "payments" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:21:in 'DashboardController#index'
+  Rendering layout layouts/admin.html.erb
+  Rendering dashboard/index.html.erb within layouts/admin
+  Rendered dashboard/index.html.erb within layouts/admin (Duration: 1.2ms | GC: 0.0ms)
+  Rendered layout layouts/admin.html.erb (Duration: 1.6ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 7.1ms (12 queries, 0 cached) | GC: 16.4ms)
+
+
+  
+ActionView::Template::Error (Translation missing: pt-BR.date.formats.long)
+Caused by: I18n::MissingTranslationData (Translation missing: pt-BR.date.formats.long)
+
+Information for: ActionView::Template::Error (Translation missing: pt-BR.date.formats.long):
+    3: <div class="d-flex justify-content-between align-items-center mb-4">
+    4:   <h1 class="h3 mb-0">Dashboard</h1>
+    5:   <span class="text-muted small"><%= l(Date.current, format: :long) %></span>
+    6: </div>
+    7: 
+    8: <%# KPIs principais %>
+    9: <div class="row g-3 mb-4">
+  
+app/views/dashboard/index.html.erb:6
+
+Information for cause: I18n::MissingTranslationData (Translation missing: pt-BR.date.formats.long):
+  
+app/views/dashboard/index.html.erb:6
+Started GET "/" for 127.0.0.1 at 2026-02-14 19:48:35 -0300
+DEPRECATION WARNING: resource received a hash argument only. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument path_names. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+DEPRECATION WARNING: resource received a hash argument controller. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at /home/rafael-alves/Forge/forge_imobiliaria/config/routes.rb:2)
+Processing by DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  [1m[36mClient Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:3:in 'DashboardController#index'
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:4:in 'DashboardController#index'
+  [1m[36mContract Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:5:in 'DashboardController#index'
+  [1m[36mPayment Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "payments" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:6:in 'DashboardController#index'
+  [1m[36mContract Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:8:in 'DashboardController#index'
+  [1m[36mContract Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' AND "contracts"."contract_type" = 'sale' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:9:in 'DashboardController#index'
+  [1m[36mContract Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "contracts" WHERE "contracts"."status" = 'active' AND "contracts"."contract_type" = 'rent' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:10:in 'DashboardController#index'
+  [1m[36mProperty Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" WHERE "properties"."is_for_sale" = TRUE /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:12:in 'DashboardController#index'
+  [1m[36mProperty Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties" WHERE "properties"."is_for_rent" = TRUE /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:13:in 'DashboardController#index'
+  [1m[36mPayment Sum (0.6ms)[0m  [1m[34mSELECT SUM("payments"."amount") FROM "payments" WHERE "payments"."payment_date" BETWEEN '2026-02-01' AND '2026-02-28' /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:18:in 'DashboardController#index'
+  [1m[36mPayment Sum (0.3ms)[0m  [1m[34mSELECT SUM("payments"."amount") FROM "payments" /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/controllers/dashboard_controller.rb:21:in 'DashboardController#index'
+  Rendering layout layouts/admin.html.erb
+  Rendering dashboard/index.html.erb within layouts/admin
+  [1m[36mContract Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "contracts" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:108
+  [1m[36mContract Load (1.4ms)[0m  [1m[34mSELECT "contracts".* FROM "contracts" ORDER BY "contracts"."created_at" DESC LIMIT 5 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:109
+  [1m[36mProperty Load (0.4ms)[0m  [1m[34mSELECT "properties".* FROM "properties" WHERE "properties"."id" IN (5, 2, 1) /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:109
+  [1m[36mClient Load (0.7ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (2, 1) /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:109
+  [1m[36mPayment Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "payments" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:168
+  [1m[36mPayment Load (0.9ms)[0m  [1m[34mSELECT "payments".* FROM "payments" ORDER BY "payments"."payment_date" DESC LIMIT 5 /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:169
+  [1m[36mContract Load (0.6ms)[0m  [1m[34mSELECT "contracts".* FROM "contracts" WHERE "contracts"."id" IN (3, 2, 1) /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:169
+  [1m[36mProperty Load (0.9ms)[0m  [1m[34mSELECT "properties".* FROM "properties" WHERE "properties"."id" IN (1, 2, 5) /*action='index',application='ForgeImobiliaria',controller='dashboard'*/[0m
+  ↳ app/views/dashboard/index.html.erb:169
+  Rendered dashboard/index.html.erb within layouts/admin (Duration: 89.2ms | GC: 24.2ms)
+  Rendered layout layouts/admin.html.erb (Duration: 104.1ms | GC: 31.6ms)
+Completed 200 OK in 180ms (Views: 95.3ms | ActiveRecord: 31.4ms (20 queries, 0 cached) | GC: 36.9ms)
+
+
+Started GET "/contracts" for 127.0.0.1 at 2026-02-14 19:48:40 -0300
+Processing by ContractsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  Rendering layout layouts/admin.html.erb
+  Rendering contracts/index.html.erb within layouts/admin
+  [1m[36mContract Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "contracts" LIMIT 1 /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:23
+  [1m[36mContract Load (0.7ms)[0m  [1m[34mSELECT "contracts".* FROM "contracts" ORDER BY "contracts"."created_at" DESC /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mProperty Load (0.6ms)[0m  [1m[34mSELECT "properties".* FROM "properties" WHERE "properties"."id" IN (5, 2, 1) /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mClient Load (1.0ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (2, 1) /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mClient Load (0.8ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" = 3 /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  [1m[36mClient Load (0.6ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."id" IN (5, 4) /*action='index',application='ForgeImobiliaria',controller='contracts'*/[0m
+  ↳ app/views/contracts/index.html.erb:24
+  Rendered contracts/index.html.erb within layouts/admin (Duration: 45.9ms | GC: 26.1ms)
+  Rendered layout layouts/admin.html.erb (Duration: 48.1ms | GC: 26.1ms)
+Completed 200 OK in 58ms (Views: 44.7ms | ActiveRecord: 4.8ms (7 queries, 0 cached) | GC: 29.8ms)
+
+
