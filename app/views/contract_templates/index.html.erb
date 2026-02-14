@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">Modelos de contrato</h1>
+  <%= link_to "Novo modelo", new_contract_template_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Contratos vinculados</th>
+            <th class="text-end">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @templates.any? %>
+            <% @templates.each do |template| %>
+              <tr>
+                <td class="align-middle"><%= template.name %></td>
+                <td class="align-middle">
+                  <% if template.contract_type == "sale" %>
+                    <span class="badge bg-primary">Venda</span>
+                  <% else %>
+                    <span class="badge bg-info text-dark">Locação</span>
+                  <% end %>
+                </td>
+                <td class="align-middle"><%= template.contracts.count %></td>
+                <td class="align-middle text-end text-nowrap">
+                  <%= link_to "Ver", contract_template_path(template), class: "btn btn-sm btn-outline-secondary" %>
+                  <%= link_to "Editar", edit_contract_template_path(template), class: "btn btn-sm btn-outline-primary ms-1" %>
+                  <%= button_to "Excluir", contract_template_path(template), method: :delete,
+                      class: "btn btn-sm btn-outline-danger ms-1",
+                      form: { data: { turbo_confirm: "Tem certeza que deseja excluir o modelo \"#{template.name}\"?" } } %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" class="text-center text-muted py-4">Nenhum modelo encontrado.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

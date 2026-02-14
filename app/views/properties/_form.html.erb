@@ -1,0 +1,128 @@
+<%= form_with model: property do |f| %>
+  <% if property.errors.any? %>
+    <div data-controller="notifications"
+         data-notifications-errors-value="<%= property.errors.full_messages.to_json %>">
+    </div>
+  <% end %>
+
+  <h5 class="mb-3">Informações gerais</h5>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-8">
+      <%= f.label :title, "Título", class: "form-label" %>
+      <%= f.text_field :title, class: "form-control #{"is-invalid" if property.errors[:title].any?}" %>
+      <div class="invalid-feedback"><%= property.errors[:title].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :area, "Área (m²)", class: "form-label" %>
+      <%= f.number_field :area, step: "0.01", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, "Descrição", class: "form-label" %>
+    <%= f.text_area :description, rows: 3, class: "form-control" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :owner_id, "Proprietário", class: "form-label" %>
+    <%= f.select :owner_id, @clients,
+        { include_blank: "Selecione um cliente..." },
+        class: "form-select #{"is-invalid" if property.errors[:owner].any?}" %>
+    <div class="invalid-feedback"><%= property.errors[:owner].first %></div>
+  </div>
+
+  <h5 class="mb-3">Endereço</h5>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3">
+      <label class="form-label">CEP</label>
+      <input type="text" name="property[cep_code]"
+             value="<%= property.cep&.cep %>"
+             class="form-control #{"is-invalid" if property.errors[:cep].any?}"
+             placeholder="00000-000">
+      <div class="invalid-feedback"><%= property.errors[:cep].first %></div>
+    </div>
+    <% if property.cep.present? %>
+      <div class="col-12 col-md-5">
+        <label class="form-label">Logradouro</label>
+        <input type="text" class="form-control" value="<%= property.cep.street %>" disabled>
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="form-label">Bairro</label>
+        <input type="text" class="form-control" value="<%= property.cep.neighborhood.name %>" disabled>
+      </div>
+    <% end %>
+    <div class="col-12 col-md-3">
+      <%= f.label :address_number, "Número", class: "form-label" %>
+      <%= f.text_field :address_number, class: "form-control #{"is-invalid" if property.errors[:address_number].any?}" %>
+      <div class="invalid-feedback"><%= property.errors[:address_number].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :complement, "Complemento", class: "form-label" %>
+      <%= f.text_field :complement, class: "form-control" %>
+    </div>
+  </div>
+
+  <h5 class="mb-3">Disponibilidade e valores</h5>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-check form-switch mb-3">
+            <%= f.check_box :is_for_sale, class: "form-check-input", role: "switch" %>
+            <%= f.label :is_for_sale, "Disponível para venda", class: "form-check-label fw-semibold" %>
+          </div>
+          <div class="row g-2">
+            <div class="col-6">
+              <%= f.label :sale_price, "Preço de venda (R$)", class: "form-label" %>
+              <%= f.number_field :sale_price, step: "0.01", class: "form-control" %>
+            </div>
+            <div class="col-6">
+              <%= f.label :commission_on_sales, "Comissão (%)", class: "form-label" %>
+              <%= f.number_field :commission_on_sales, step: "0.01", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-check form-switch mb-3">
+            <%= f.check_box :is_for_rent, class: "form-check-input", role: "switch" %>
+            <%= f.label :is_for_rent, "Disponível para locação", class: "form-check-label fw-semibold" %>
+          </div>
+          <div class="row g-2">
+            <div class="col-6">
+              <%= f.label :rental_fee, "Aluguel (R$)", class: "form-label" %>
+              <%= f.number_field :rental_fee, step: "0.01", class: "form-control" %>
+            </div>
+            <div class="col-6">
+              <%= f.label :rental_deposit, "Depósito (R$)", class: "form-label" %>
+              <%= f.number_field :rental_deposit, step: "0.01", class: "form-control" %>
+            </div>
+            <div class="col-6">
+              <%= f.label :commission_on_rentals, "Comissão (%)", class: "form-label" %>
+              <%= f.number_field :commission_on_rentals, step: "0.01", class: "form-control" %>
+            </div>
+            <div class="col-6">
+              <%= f.label :rental_fee_due_day, "Vencimento (dia)", class: "form-label" %>
+              <%= f.number_field :rental_fee_due_day, min: 1, max: 28, class: "form-control" %>
+            </div>
+            <div class="col-12">
+              <%= f.label :penalty_for_each_day_of_rent_overdue, "Multa por dia de atraso (R$)", class: "form-label" %>
+              <%= f.number_field :penalty_for_each_day_of_rent_overdue, step: "0.01", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= f.submit property.persisted? ? "Salvar alterações" : "Criar imóvel", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", properties_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

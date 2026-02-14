@@ -14,7 +14,10 @@
     <%= yield :head %>
   </head>
 
-  <body class="<%= content_for(:body_class).presence || "sidebar-lg-show" %>">
+  <body class="<%= content_for(:body_class).presence || "sidebar-lg-show" %>"
+        data-controller="notifications"
+        data-notifications-notice-value="<%= notice.to_s %>"
+        data-notifications-alert-value="<%= alert.to_s %>">
 
     <%# Sidebar %>
     <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
@@ -35,27 +38,39 @@
           <% end %>
         </li>
 
-        <li class="nav-title">Imóveis</li>
+        <li class="nav-title">Gestão</li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <%= link_to properties_path, class: "nav-link #{"active" if request.path.start_with?("/properties")}" do %>
             <i class="nav-icon cil-home"></i> Imóveis
-          </a>
+          <% end %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <%= link_to clients_path, class: "nav-link #{"active" if request.path.start_with?("/clients")}" do %>
             <i class="nav-icon cil-people"></i> Clientes
-          </a>
+          <% end %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="nav-icon cil-dollar"></i> Negociações
-          </a>
+          <%= link_to contracts_path, class: "nav-link #{"active" if request.path.start_with?("/contracts")}" do %>
+            <i class="nav-icon cil-description"></i> Contratos
+          <% end %>
+        </li>
+
+        <li class="nav-title">Configurações</li>
+        <li class="nav-item">
+          <%= link_to contract_templates_path, class: "nav-link #{"active" if request.path.start_with?("/contract_templates")}" do %>
+            <i class="nav-icon cil-file"></i> Modelos de contrato
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path, class: "nav-link #{"active" if request.path.start_with?("/users")}" do %>
+            <i class="nav-icon cil-user"></i> Usuários
+          <% end %>
         </li>
 
         <li class="nav-title">Conta</li>
         <li class="nav-item">
           <%= link_to edit_user_registration_path, class: "nav-link #{"active" if current_page?(edit_user_registration_path)}" do %>
-            <i class="nav-icon cil-user"></i> Meu Perfil
+            <i class="nav-icon cil-settings"></i> Meu Perfil
           <% end %>
         </li>
         <li class="nav-item">
@@ -107,21 +122,10 @@
       <%# /Header %>
 
       <%# Main Content %>
-      <div class="body flex-grow-1 px-4">
-        <% if notice.present? %>
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <%= notice %>
-            <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
-          </div>
-        <% end %>
-        <% if alert.present? %>
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <%= alert %>
-            <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
-          </div>
-        <% end %>
-
-        <%= yield %>
+      <div class="body flex-grow-1">
+        <div class="container-xl px-3 px-md-4 py-3">
+          <%= yield %>
+        </div>
       </div>
       <%# /Main Content %>
 

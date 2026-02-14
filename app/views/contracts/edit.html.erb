@@ -1,0 +1,10 @@
+<div class="mb-4">
+  <h1 class="h3 mb-0">Editar contrato</h1>
+  <p class="text-muted mb-0"><%= @contract.contract_number %></p>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <%= render "form", contract: @contract %>
+  </div>
+</div>

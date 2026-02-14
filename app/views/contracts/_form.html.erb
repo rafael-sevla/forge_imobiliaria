@@ -1,0 +1,133 @@
+<%= form_with model: contract do |f| %>
+  <% if contract.errors.any? %>
+    <div data-controller="notifications"
+         data-notifications-errors-value="<%= contract.errors.full_messages.to_json %>">
+    </div>
+  <% end %>
+
+  <h5 class="mb-3">Dados do contrato</h5>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+      <%= f.label :contract_number, "Número do contrato", class: "form-label" %>
+      <%= f.text_field :contract_number, class: "form-control #{"is-invalid" if contract.errors[:contract_number].any?}" %>
+      <div class="invalid-feedback"><%= contract.errors[:contract_number].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :contract_type, "Tipo", class: "form-label" %>
+      <%= f.select :contract_type,
+          [["Venda", "sale"], ["Locação", "rent"]],
+          { include_blank: "Selecione..." },
+          class: "form-select #{"is-invalid" if contract.errors[:contract_type].any?}" %>
+      <div class="invalid-feedback"><%= contract.errors[:contract_type].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :status, "Status", class: "form-label" %>
+      <%= f.select :status,
+          [["Ativo", "active"], ["Concluído", "completed"], ["Cancelado", "cancelled"]],
+          {},
+          class: "form-select" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :start_date, "Data de início", class: "form-label" %>
+      <%= f.date_field :start_date, class: "form-control #{"is-invalid" if contract.errors[:start_date].any?}" %>
+      <div class="invalid-feedback"><%= contract.errors[:start_date].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :end_date, "Data de encerramento", class: "form-label" %>
+      <%= f.date_field :end_date, class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :signed_at, "Data de assinatura", class: "form-label" %>
+      <%= f.date_field :signed_at, class: "form-control" %>
+    </div>
+  </div>
+
+  <h5 class="mb-3">Partes envolvidas</h5>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-6">
+      <%= f.label :property_id, "Imóvel", class: "form-label" %>
+      <%= f.select :property_id, @properties,
+          { include_blank: "Selecione um imóvel..." },
+          class: "form-select #{"is-invalid" if contract.errors[:property].any?}" %>
+      <div class="invalid-feedback"><%= contract.errors[:property].first %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <%= f.label :seller_id, "Vendedor / Locador", class: "form-label" %>
+      <%= f.select :seller_id, @clients,
+          { include_blank: "Selecione um cliente..." },
+          class: "form-select #{"is-invalid" if contract.errors[:seller].any?}" %>
+      <div class="invalid-feedback"><%= contract.errors[:seller].first %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <%= f.label :buyer_id, "Comprador (para venda)", class: "form-label" %>
+      <%= f.select :buyer_id, @clients,
+          { include_blank: "Nenhum" },
+          class: "form-select" %>
+    </div>
+    <div class="col-12 col-md-6">
+      <%= f.label :tenant_id, "Locatário (para locação)", class: "form-label" %>
+      <%= f.select :tenant_id, @clients,
+          { include_blank: "Nenhum" },
+          class: "form-select" %>
+    </div>
+  </div>
+
+  <h5 class="mb-3">Valores</h5>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+      <%= f.label :sale_price, "Preço de venda (R$)", class: "form-label" %>
+      <%= f.number_field :sale_price, step: "0.01", class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :sale_commission, "Comissão venda (R$)", class: "form-label" %>
+      <%= f.number_field :sale_commission, step: "0.01", class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :rental_fee, "Aluguel (R$)", class: "form-label" %>
+      <%= f.number_field :rental_fee, step: "0.01", class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :rental_deposit, "Depósito (R$)", class: "form-label" %>
+      <%= f.number_field :rental_deposit, step: "0.01", class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :rental_commission, "Comissão locação (R$)", class: "form-label" %>
+      <%= f.number_field :rental_commission, step: "0.01", class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :rental_due_day, "Vencimento aluguel (dia)", class: "form-label" %>
+      <%= f.number_field :rental_due_day, min: 1, max: 28, class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :penalty_per_day, "Multa por dia de atraso (R$)", class: "form-label" %>
+      <%= f.number_field :penalty_per_day, step: "0.01", class: "form-control" %>
+    </div>
+  </div>
+
+  <h5 class="mb-3">Documento</h5>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+      <%= f.label :contract_template_id, "Modelo de contrato", class: "form-label" %>
+      <%= f.select :contract_template_id, @templates,
+          { include_blank: "Nenhum" },
+          class: "form-select" %>
+    </div>
+    <div class="col-12">
+      <%= f.label :contract_content, "Conteúdo do contrato", class: "form-label" %>
+      <%= f.text_area :contract_content, rows: 6, class: "form-control" %>
+    </div>
+    <div class="col-12">
+      <%= f.label :notes, "Observações", class: "form-label" %>
+      <%= f.text_area :notes, rows: 3, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit contract.persisted? ? "Salvar alterações" : "Criar contrato", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", contracts_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

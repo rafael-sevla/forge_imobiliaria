@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-0"><%= @template.name %></h1>
+    <% if @template.contract_type == "sale" %>
+      <span class="badge bg-primary mt-1">Venda</span>
+    <% else %>
+      <span class="badge bg-info text-dark mt-1">Locação</span>
+    <% end %>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "Editar", edit_contract_template_path(@template), class: "btn btn-outline-primary" %>
+    <%= link_to "Voltar", contract_templates_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">Conteúdo do modelo</div>
+  <div class="card-body">
+    <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;"><%= @template.content %></pre>
+  </div>
+</div>

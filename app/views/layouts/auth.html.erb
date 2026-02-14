@@ -13,7 +13,10 @@
     <%= yield :head %>
   </head>
 
-  <body class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+  <body class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center"
+        data-controller="notifications"
+        data-notifications-notice-value="<%= notice.to_s %>"
+        data-notifications-alert-value="<%= alert.to_s %>">
 
     <div class="container">
       <div class="row justify-content-center">
@@ -22,19 +25,6 @@
           <div class="text-center mb-4">
             <h1 class="h3 fw-bold">Forge Imobiliária</h1>
           </div>
-
-          <% if notice.present? %>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <%= notice %>
-              <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
-            </div>
-          <% end %>
-          <% if alert.present? %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <%= alert %>
-              <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
-            </div>
-          <% end %>
 
           <%= yield %>
 

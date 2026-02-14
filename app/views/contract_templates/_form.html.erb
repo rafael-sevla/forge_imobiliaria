@@ -1,0 +1,35 @@
+<%= form_with model: template do |f| %>
+  <% if template.errors.any? %>
+    <div data-controller="notifications"
+         data-notifications-errors-value="<%= template.errors.full_messages.to_json %>">
+    </div>
+  <% end %>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-8">
+      <%= f.label :name, "Nome do modelo", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control #{"is-invalid" if template.errors[:name].any?}" %>
+      <div class="invalid-feedback"><%= template.errors[:name].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :contract_type, "Tipo de contrato", class: "form-label" %>
+      <%= f.select :contract_type,
+          [["Venda", "sale"], ["Locação", "rent"]],
+          { include_blank: "Selecione..." },
+          class: "form-select #{"is-invalid" if template.errors[:contract_type].any?}" %>
+      <div class="invalid-feedback"><%= template.errors[:contract_type].first %></div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :content, "Conteúdo do modelo", class: "form-label" %>
+    <%= f.text_area :content, rows: 16, class: "form-control #{"is-invalid" if template.errors[:content].any?}",
+        placeholder: "Use variáveis como {nome_comprador}, {valor}, {data_inicio}..." %>
+    <div class="invalid-feedback"><%= template.errors[:content].first %></div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit template.persisted? ? "Salvar alterações" : "Criar modelo", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", contract_templates_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

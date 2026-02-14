@@ -2,6 +2,8 @@
   <div class="card-body p-4">
     <h1 class="h4 mb-4">Entrar</h1>
 
+    <%= render "devise/shared/error_messages", resource: resource %>
+
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="mb-3">
         <%= f.label :email, "E-mail", class: "form-label" %>

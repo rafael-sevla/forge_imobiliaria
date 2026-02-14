@@ -1,9 +1,5 @@
 <% if resource.errors.any? %>
-  <div class="alert alert-danger" data-turbo-cache="false">
-    <ul class="mb-0 ps-3">
-      <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+  <div data-controller="notifications"
+       data-notifications-errors-value="<%= resource.errors.full_messages.to_json %>">
   </div>
 <% end %>

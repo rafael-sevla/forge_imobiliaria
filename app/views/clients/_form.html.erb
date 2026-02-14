@@ -1,0 +1,105 @@
+<%= form_with model: client do |f| %>
+  <% if client.errors.any? %>
+    <div data-controller="notifications"
+         data-notifications-errors-value="<%= client.errors.full_messages.to_json %>">
+    </div>
+  <% end %>
+
+  <h5 class="mb-3">Dados pessoais</h5>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-6">
+      <%= f.label :name, "Nome completo", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control #{"is-invalid" if client.errors[:name].any?}" %>
+      <div class="invalid-feedback"><%= client.errors[:name].first %></div>
+    </div>
+    <div class="col-12 col-md-3">
+      <%= f.label :document_type, "Tipo de documento", class: "form-label" %>
+      <%= f.select :document_type,
+          [["CPF", "cpf"], ["RG", "rg"], ["CNPJ", "cnpj"]],
+          { include_blank: "Selecione..." },
+          class: "form-select #{"is-invalid" if client.errors[:document_type].any?}" %>
+      <div class="invalid-feedback"><%= client.errors[:document_type].first %></div>
+    </div>
+    <div class="col-12 col-md-3">
+      <%= f.label :document_number, "Número do documento", class: "form-label" %>
+      <%= f.text_field :document_number, class: "form-control #{"is-invalid" if client.errors[:document_number].any?}" %>
+      <div class="invalid-feedback"><%= client.errors[:document_number].first %></div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-4">
+      <%= f.label :birth_date, "Data de nascimento", class: "form-label" %>
+      <%= f.date_field :birth_date, class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :marital_status, "Estado civil", class: "form-label" %>
+      <%= f.select :marital_status,
+          [["Solteiro(a)", "single"], ["Casado(a)", "married"], ["Divorciado(a)", "divorced"],
+           ["Viúvo(a)", "widowed"], ["Não informado", "not_informed"]],
+          { include_blank: "Selecione..." },
+          class: "form-select #{"is-invalid" if client.errors[:marital_status].any?}" %>
+      <div class="invalid-feedback"><%= client.errors[:marital_status].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :nationality, "Nacionalidade", class: "form-label" %>
+      <%= f.text_field :nationality, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+      <%= f.label :profession, "Profissão", class: "form-label" %>
+      <%= f.text_field :profession, class: "form-control" %>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :email, "E-mail", class: "form-label" %>
+      <%= f.email_field :email, class: "form-control #{"is-invalid" if client.errors[:email].any?}" %>
+      <div class="invalid-feedback"><%= client.errors[:email].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <label class="form-label">Telefones <small class="text-muted">(um por linha)</small></label>
+      <textarea name="client[phones_text]" class="form-control #{"is-invalid" if client.errors[:phones].any?}"
+                rows="3"><%= client.phones.join("\n") %></textarea>
+      <div class="invalid-feedback"><%= client.errors[:phones].first %></div>
+    </div>
+  </div>
+
+  <h5 class="mb-3">Endereço</h5>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3">
+      <label class="form-label">CEP</label>
+      <input type="text" name="client[cep_code]"
+             value="<%= client.cep&.cep %>"
+             class="form-control #{"is-invalid" if client.errors[:cep].any?}"
+             placeholder="00000-000">
+      <div class="invalid-feedback"><%= client.errors[:cep].first %></div>
+    </div>
+    <% if client.cep.present? %>
+      <div class="col-12 col-md-5">
+        <label class="form-label">Logradouro</label>
+        <input type="text" class="form-control" value="<%= client.cep.street %>" disabled>
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="form-label">Bairro</label>
+        <input type="text" class="form-control" value="<%= client.cep.neighborhood.name %>" disabled>
+      </div>
+    <% end %>
+    <div class="col-12 col-md-3">
+      <%= f.label :address_number, "Número", class: "form-label" %>
+      <%= f.text_field :address_number, class: "form-control #{"is-invalid" if client.errors[:address_number].any?}" %>
+      <div class="invalid-feedback"><%= client.errors[:address_number].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :complement, "Complemento", class: "form-label" %>
+      <%= f.text_field :complement, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit client.persisted? ? "Salvar alterações" : "Criar cliente", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", clients_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,129 @@
+<% badge = { "active" => "bg-success", "completed" => "bg-secondary", "cancelled" => "bg-danger" } %>
+<% label = { "active" => "Ativo", "completed" => "Concluído", "cancelled" => "Cancelado" } %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-0">Contrato <%= @contract.contract_number %></h1>
+    <div class="d-flex gap-2 mt-1">
+      <% if @contract.sale? %>
+        <span class="badge bg-primary">Venda</span>
+      <% else %>
+        <span class="badge bg-info text-dark">Locação</span>
+      <% end %>
+      <span class="badge <%= badge[@contract.status] %>"><%= label[@contract.status] %></span>
+    </div>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "Novo pagamento", new_contract_payment_path(@contract), class: "btn btn-success" %>
+    <%= link_to "Editar", edit_contract_path(@contract), class: "btn btn-outline-primary" %>
+    <%= link_to "Voltar", contracts_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-12 col-lg-6">
+    <div class="card h-100">
+      <div class="card-header">Partes envolvidas</div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-5">Imóvel</dt>
+          <dd class="col-sm-7"><%= @contract.property.title %></dd>
+
+          <dt class="col-sm-5">Vendedor / Locador</dt>
+          <dd class="col-sm-7"><%= @contract.seller.name %></dd>
+
+          <% if @contract.buyer.present? %>
+            <dt class="col-sm-5">Comprador</dt>
+            <dd class="col-sm-7"><%= @contract.buyer.name %></dd>
+          <% end %>
+
+          <% if @contract.tenant.present? %>
+            <dt class="col-sm-5">Locatário</dt>
+            <dd class="col-sm-7"><%= @contract.tenant.name %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <div class="card h-100">
+      <div class="card-header">Datas &amp; Valores</div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-5">Início</dt>
+          <dd class="col-sm-7"><%= @contract.start_date&.strftime("%d/%m/%Y") || "—" %></dd>
+
+          <dt class="col-sm-5">Encerramento</dt>
+          <dd class="col-sm-7"><%= @contract.end_date&.strftime("%d/%m/%Y") || "—" %></dd>
+
+          <dt class="col-sm-5">Assinatura</dt>
+          <dd class="col-sm-7"><%= @contract.signed_at&.strftime("%d/%m/%Y") || "—" %></dd>
+
+          <% if @contract.sale? %>
+            <dt class="col-sm-5">Preço de venda</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@contract.sale_price, unit: "R$", separator: ",", delimiter: ".") %></dd>
+            <dt class="col-sm-5">Comissão</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@contract.sale_commission, unit: "R$", separator: ",", delimiter: ".") %></dd>
+          <% else %>
+            <dt class="col-sm-5">Aluguel</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@contract.rental_fee, unit: "R$", separator: ",", delimiter: ".") %></dd>
+            <dt class="col-sm-5">Vencimento</dt>
+            <dd class="col-sm-7">Dia <%= @contract.rental_due_day %></dd>
+            <dt class="col-sm-5">Depósito</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@contract.rental_deposit, unit: "R$", separator: ",", delimiter: ".") %></dd>
+          <% end %>
+
+          <dt class="col-sm-5 mt-2 fw-bold">Total pago</dt>
+          <dd class="col-sm-7 mt-2 fw-bold"><%= number_to_currency(@contract.total_paid, unit: "R$", separator: ",", delimiter: ".") %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Pagamentos</span>
+    <%= link_to "Registrar pagamento", new_contract_payment_path(@contract), class: "btn btn-sm btn-success" %>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Forma</th>
+            <th>Observações</th>
+            <th class="text-end">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @payments.any? %>
+            <% payment_labels = { "cash" => "Dinheiro", "credit_card" => "Cartão crédito",
+               "debit_card" => "Cartão débito", "bank_transfer" => "Transferência", "pix" => "Pix" } %>
+            <% @payments.each do |payment| %>
+              <tr>
+                <td class="align-middle"><%= payment.payment_date.strftime("%d/%m/%Y") %></td>
+                <td class="align-middle fw-semibold"><%= number_to_currency(payment.amount, unit: "R$", separator: ",", delimiter: ".") %></td>
+                <td class="align-middle"><%= payment_labels[payment.payment_method] || payment.payment_method %></td>
+                <td class="align-middle text-muted"><%= payment.notes.presence || "—" %></td>
+                <td class="align-middle text-end text-nowrap">
+                  <%= link_to "Editar", edit_payment_path(payment), class: "btn btn-sm btn-outline-primary" %>
+                  <%= button_to "Excluir", payment_path(payment), method: :delete,
+                      class: "btn btn-sm btn-outline-danger ms-1",
+                      form: { data: { turbo_confirm: "Excluir este pagamento?" } } %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" class="text-center text-muted py-4">Nenhum pagamento registrado.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

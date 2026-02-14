@@ -1,0 +1,39 @@
+<%= form_with model: [@contract, payment] do |f| %>
+  <% if payment.errors.any? %>
+    <div data-controller="notifications"
+         data-notifications-errors-value="<%= payment.errors.full_messages.to_json %>">
+    </div>
+  <% end %>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-4">
+      <%= f.label :payment_date, "Data do pagamento", class: "form-label" %>
+      <%= f.date_field :payment_date, class: "form-control #{"is-invalid" if payment.errors[:payment_date].any?}" %>
+      <div class="invalid-feedback"><%= payment.errors[:payment_date].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :amount, "Valor (R$)", class: "form-label" %>
+      <%= f.number_field :amount, step: "0.01", class: "form-control #{"is-invalid" if payment.errors[:amount].any?}" %>
+      <div class="invalid-feedback"><%= payment.errors[:amount].first %></div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.label :payment_method, "Forma de pagamento", class: "form-label" %>
+      <%= f.select :payment_method,
+          [["Dinheiro", "cash"], ["Cartão de crédito", "credit_card"],
+           ["Cartão de débito", "debit_card"], ["Transferência", "bank_transfer"], ["Pix", "pix"]],
+          { include_blank: "Selecione..." },
+          class: "form-select #{"is-invalid" if payment.errors[:payment_method].any?}" %>
+      <div class="invalid-feedback"><%= payment.errors[:payment_method].first %></div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :notes, "Observações", class: "form-label" %>
+    <%= f.text_area :notes, rows: 2, class: "form-control" %>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit payment.persisted? ? "Salvar alterações" : "Registrar pagamento", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", contract_path(@contract), class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

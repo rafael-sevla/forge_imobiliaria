@@ -1,0 +1,163 @@
+Table users {
+  id bigserial [pk, increment]
+  name varchar [not null]
+  email varchar [not null, default: '', note: 'unique']
+  encrypted_password varchar [not null, default: '']
+  reset_password_token varchar [note: 'unique']
+  reset_password_sent_at timestamp
+  remember_created_at timestamp
+  is_active boolean [not null, default: true]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    email [unique]
+    reset_password_token [unique]
+  }
+}
+
+Table states {
+  id bigint [pk, increment]
+  name varchar [not null]
+  abbreviation varchar(2) [not null, unique]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table cities {
+  id bigint [pk, increment]
+  name varchar [not null]
+  state_id bigint [not null, ref: > states.id]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table neighborhoods {
+  id bigint [pk, increment]
+  name varchar [not null]
+  city_id bigint [not null, ref: > cities.id]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table ceps {
+  id bigint [pk, increment]
+  cep varchar(10) [not null, unique]
+  street varchar [not null]
+  neighborhood_id bigint [not null, ref: > neighborhoods.id]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table clients {
+  id bigint [pk, increment]
+  name varchar [not null]
+  email varchar
+  phones varchar[] [not null, default: '[]'] 
+  document_type enum ('cpf', 'rg', 'cnpj') [not null]
+  document_number varchar [not null, unique]
+  nationality varchar
+  birth_date date
+  profession varchar
+  material_status enum ('single', 'married', 'divorced', 'widowed', 'not_informed') [not null, default: 'not_informed']
+  cep_id bigint [not null, ref: > ceps.id]
+  address_number varchar [not null]
+  complement varchar
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table properties {
+  id bigint [pk, increment]
+  title varchar [not null]
+  description text
+  is_for_sale boolean [not null, default: true]
+  is_for_rent boolean [not null, default: false]
+  sale_price decimal(12, 2) [not null, default: 0.00]
+  commission_on_sales decimal(12, 2) [not null, default: 0.00]
+  rental_deposit decimal(12, 2) [not null, default: 0.00]
+  rental_fee decimal(12, 2) [not null, default: 0.00]
+  rental_fee_due_day integer [not null, default: 1]
+  penalty_for_each_day_of_rent_overdue decimal(12, 2) [not null, default: 0.00]
+  commission_on_rentals decimal(12, 2) [not null, default: 0.00]
+  area decimal(10, 2)
+  cep_id bigint [not null, ref: > ceps.id]
+  address_number varchar [not null]
+  complement varchar
+  owner_id bigint [not null, ref: > clients.id]
+  // tenant_id is now derived from active rental contract
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table contract_templates {
+  id bigint [pk, increment]
+  name varchar [not null]
+  contract_type enum ('sale', 'rent') [not null]
+  content text [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    name [unique]
+  }
+}
+
+Table contracts {
+  id bigint [pk, increment]
+  contract_number varchar [not null, unique]
+  property_id bigint [not null, ref: > properties.id]
+  contract_type enum ('sale', 'rent') [not null]
+  status enum ('active', 'completed', 'cancelled') [not null, default: 'active']
+
+  // Parties involved
+  seller_id bigint [not null, ref: > clients.id, note: 'Owner/seller at time of signing']
+  buyer_id bigint [ref: > clients.id, note: 'Only for sale contracts']
+  tenant_id bigint [ref: > clients.id, note: 'Only for rental contracts']
+
+  // Dates
+  signed_at date
+  start_date date
+  end_date date
+
+  // Sale-specific fields
+  sale_price decimal(12, 2) [default: 0.00, note: 'Only for sale contracts']
+  sale_commission decimal(12, 2) [default: 0.00, note: 'Commission agreed at signing']
+
+  // Rental-specific fields
+  rental_fee decimal(12, 2) [default: 0.00, note: 'Monthly fee agreed at signing']
+  rental_deposit decimal(12, 2) [default: 0.00, note: 'Security deposit']
+  rental_commission decimal(12, 2) [default: 0.00, note: 'Commission agreed at signing']
+  rental_due_day integer [default: 1, note: 'Day of month for rent payment']
+  penalty_per_day decimal(12, 2) [default: 0.00, note: 'Late payment penalty per day']
+
+  contract_template_id bigint [ref: > contract_templates.id, note: 'Template used at signing']
+  contract_content text [note: 'Final contract content at signing, for record-keeping']
+  notes text
+
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    contract_number [unique]
+    property_id
+    status
+  }
+}
+
+Table payments {
+  id bigint [pk, increment]
+  contract_id bigint [not null, ref: > contracts.id]
+  amount decimal(12, 2) [not null]
+  payment_date date [not null]
+  payment_method enum('cash', 'credit_card', 'debit_card', 'bank_transfer', 'pix') [not null]
+  notes text
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    contract_id
+    payment_date
+  }
+}
+

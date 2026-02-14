@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">Imóveis</h1>
+  <%= link_to "Novo imóvel", new_property_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Título</th>
+            <th>Proprietário</th>
+            <th>Disponível para</th>
+            <th>Preço venda</th>
+            <th>Aluguel</th>
+            <th class="text-end">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @properties.any? %>
+            <% @properties.each do |property| %>
+              <tr>
+                <td class="align-middle"><%= property.title %></td>
+                <td class="align-middle"><%= property.owner.name %></td>
+                <td class="align-middle">
+                  <% if property.is_for_sale? %>
+                    <span class="badge bg-primary">Venda</span>
+                  <% end %>
+                  <% if property.is_for_rent? %>
+                    <span class="badge bg-info text-dark">Aluguel</span>
+                  <% end %>
+                </td>
+                <td class="align-middle">
+                  <%= property.is_for_sale? ? number_to_currency(property.sale_price, unit: "R$", separator: ",", delimiter: ".") : "—" %>
+                </td>
+                <td class="align-middle">
+                  <%= property.is_for_rent? ? number_to_currency(property.rental_fee, unit: "R$", separator: ",", delimiter: ".") : "—" %>
+                </td>
+                <td class="align-middle text-end text-nowrap">
+                  <%= link_to "Ver", property_path(property), class: "btn btn-sm btn-outline-secondary" %>
+                  <%= link_to "Editar", edit_property_path(property), class: "btn btn-sm btn-outline-primary ms-1" %>
+                  <%= button_to "Excluir", property_path(property), method: :delete,
+                      class: "btn btn-sm btn-outline-danger ms-1",
+                      form: { data: { turbo_confirm: "Tem certeza que deseja excluir \"#{property.title}\"?" } } %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="6" class="text-center text-muted py-4">Nenhum imóvel encontrado.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

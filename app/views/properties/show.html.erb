@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-0"><%= @property.title %></h1>
+    <p class="text-muted mb-0">Proprietário: <%= @property.owner.name %></p>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "Editar", edit_property_path(@property), class: "btn btn-outline-primary" %>
+    <%= link_to "Voltar", properties_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-12 col-lg-6">
+    <div class="card h-100">
+      <div class="card-header">Informações gerais</div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-4">Título</dt>
+          <dd class="col-sm-8"><%= @property.title %></dd>
+
+          <dt class="col-sm-4">Área</dt>
+          <dd class="col-sm-8"><%= @property.area ? "#{@property.area} m²" : "—" %></dd>
+
+          <dt class="col-sm-4">Proprietário</dt>
+          <dd class="col-sm-8"><%= @property.owner.name %></dd>
+
+          <% if @property.description.present? %>
+            <dt class="col-sm-4">Descrição</dt>
+            <dd class="col-sm-8"><%= @property.description %></dd>
+          <% end %>
+
+          <% if @property.cep.present? %>
+            <dt class="col-sm-4">Endereço</dt>
+            <dd class="col-sm-8">
+              <%= @property.cep.street %>, <%= @property.address_number %>
+              <% if @property.complement.present? %> - <%= @property.complement %><% end %><br>
+              <%= @property.cep.neighborhood.name %>,
+              <%= @property.cep.neighborhood.city.name %> /
+              <%= @property.cep.neighborhood.city.state.abbreviation %>
+            </dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <% if @property.is_for_sale? %>
+      <div class="card mb-4">
+        <div class="card-header d-flex align-items-center gap-2">
+          <span class="badge bg-primary">Venda</span> Valores de venda
+        </div>
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-sm-5">Preço</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@property.sale_price, unit: "R$", separator: ",", delimiter: ".") %></dd>
+            <dt class="col-sm-5">Comissão</dt>
+            <dd class="col-sm-7"><%= @property.commission_on_sales %>%</dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @property.is_for_rent? %>
+      <div class="card">
+        <div class="card-header d-flex align-items-center gap-2">
+          <span class="badge bg-info text-dark">Aluguel</span> Valores de locação
+        </div>
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-sm-5">Aluguel</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@property.rental_fee, unit: "R$", separator: ",", delimiter: ".") %></dd>
+            <dt class="col-sm-5">Depósito</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@property.rental_deposit, unit: "R$", separator: ",", delimiter: ".") %></dd>
+            <dt class="col-sm-5">Comissão</dt>
+            <dd class="col-sm-7"><%= @property.commission_on_rentals %>%</dd>
+            <dt class="col-sm-5">Vencimento</dt>
+            <dd class="col-sm-7">Dia <%= @property.rental_fee_due_day %></dd>
+            <dt class="col-sm-5">Multa/dia atraso</dt>
+            <dd class="col-sm-7"><%= number_to_currency(@property.penalty_for_each_day_of_rent_overdue, unit: "R$", separator: ",", delimiter: ".") %></dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

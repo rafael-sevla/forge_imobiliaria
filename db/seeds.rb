@@ -1,9 +1,29 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+puts "\n== Limpando o banco de dados =="
+[
+  Payment, Contract, ContractTemplate,
+  Property, Client,
+  Cep, Neighborhood, City, State,
+  User
+].each do |model|
+  model.delete_all
+  puts "   #{model.name} removido"
+end
+
+puts "\n== Carregando seeds =="
+Dir[File.join(__dir__, "seeds", "*.rb")].sort.each do |seed|
+  puts "\n--> #{File.basename(seed)}"
+  load seed
+end
+
+puts "\n== Resumo =="
+puts "   Users:               #{User.count}"
+puts "   States:              #{State.count}"
+puts "   Cities:              #{City.count}"
+puts "   Neighborhoods:       #{Neighborhood.count}"
+puts "   Ceps:                #{Cep.count}"
+puts "   Clients:             #{Client.count}"
+puts "   Properties:          #{Property.count}"
+puts "   Contract Templates:  #{ContractTemplate.count}"
+puts "   Contracts:           #{Contract.count}"
+puts "   Payments:            #{Payment.count}"
+puts ""
