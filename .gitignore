@@ -1,0 +1,54 @@
+# Ignorar arquivos de ambiente
+.env
+.env.*
+!.env.example
+
+# Logs
+/log/*
+!/log/.keep
+
+# Temporários
+/tmp/*
+!/tmp/.keep
+
+# Storage (uploads)
+/storage/*
+!/storage/.gitkeep
+
+# Build/cache
+/public/assets
+/public/packs
+/public/packs-test
+
+# Bundler
+/.bundle
+/vendor/bundle
+
+# Credenciais e segredos
+/config/credentials/*.key
+/config/master.key
+
+# Banco de dados SQLite
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3.*.shm
+/db/*.sqlite3.*.wal
+
+# Node modules (se usar webpacker/importmap)
+/node_modules
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Byebug history
+.byebug_history
+
+# Rspec/minitest
+/coverage
