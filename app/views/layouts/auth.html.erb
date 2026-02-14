@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= content_for(:title).presence || "Forge Imobiliária" %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "coreui.min.css", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "coreui-icons.min.css", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= yield :head %>
+  </head>
+
+  <body class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+
+          <div class="text-center mb-4">
+            <h1 class="h3 fw-bold">Forge Imobiliária</h1>
+          </div>
+
+          <% if notice.present? %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <%= notice %>
+              <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
+            </div>
+          <% end %>
+          <% if alert.present? %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= alert %>
+              <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
+            </div>
+          <% end %>
+
+          <%= yield %>
+
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_importmap_tags %>
+    <script src="<%= asset_path("coreui.bundle.min.js") %>"></script>
+    <%= yield :scripts %>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title><%= content_for(:title).presence || "Forge Imobiliária" %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "coreui.min.css", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "coreui-icons.min.css", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= yield :head %>
+  </head>
+
+  <body class="<%= content_for(:body_class).presence || "sidebar-lg-show" %>">
+
+    <%# Sidebar %>
+    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+      <div class="sidebar-brand d-flex align-items-center justify-content-center">
+        <div class="sidebar-brand-full">
+          <span class="fs-5 fw-bold text-white">Forge Imobiliária</span>
+        </div>
+        <div class="sidebar-brand-narrow">
+          <span class="fw-bold text-white">FI</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav" data-coreui="navigation">
+        <li class="nav-title">Principal</li>
+        <li class="nav-item">
+          <%= link_to root_path, class: "nav-link #{"active" if current_page?(root_path)}" do %>
+            <i class="nav-icon cil-speedometer"></i> Dashboard
+          <% end %>
+        </li>
+
+        <li class="nav-title">Imóveis</li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nav-icon cil-home"></i> Imóveis
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nav-icon cil-people"></i> Clientes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nav-icon cil-dollar"></i> Negociações
+          </a>
+        </li>
+
+        <li class="nav-title">Conta</li>
+        <li class="nav-item">
+          <%= link_to edit_user_registration_path, class: "nav-link #{"active" if current_page?(edit_user_registration_path)}" do %>
+            <i class="nav-icon cil-user"></i> Meu Perfil
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= button_to destroy_user_session_path, method: :delete,
+              class: "nav-link border-0 bg-transparent w-100 text-start" do %>
+            <i class="nav-icon cil-account-logout"></i> Sair
+          <% end %>
+        </li>
+      </ul>
+
+      <button class="sidebar-toggler" type="button"></button>
+    </div>
+    <%# /Sidebar %>
+
+    <div class="wrapper d-flex flex-column min-vh-100">
+
+      <%# Header %>
+      <header class="header header-sticky p-0 mb-4">
+        <div class="container-fluid border-bottom px-4">
+          <button class="header-toggler" type="button"
+                  data-coreui-toggle="unfoldable"
+                  onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+            <i class="cil-menu"></i>
+          </button>
+
+          <ul class="header-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" role="button"
+                 data-coreui-toggle="dropdown" aria-expanded="false">
+                <i class="cil-bell"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" role="button"
+                 data-coreui-toggle="dropdown" aria-expanded="false">
+                <i class="cil-user"></i>
+                <span class="ms-1 d-none d-md-inline"><%= current_user.email %></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <%= link_to "Meu Perfil", edit_user_registration_path, class: "dropdown-item" %>
+                <div class="dropdown-divider"></div>
+                <%= button_to "Sair", destroy_user_session_path, method: :delete,
+                    class: "dropdown-item border-0 bg-transparent w-100 text-start" %>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <%# /Header %>
+
+      <%# Main Content %>
+      <div class="body flex-grow-1 px-4">
+        <% if notice.present? %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= notice %>
+            <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
+          </div>
+        <% end %>
+        <% if alert.present? %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= alert %>
+            <button type="button" class="btn-close" data-coreui-dismiss="alert"></button>
+          </div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+      <%# /Main Content %>
+
+      <%# Footer %>
+      <footer class="footer px-4">
+        <div>
+          <span>Forge Imobiliária &copy; <%= Time.current.year %></span>
+        </div>
+      </footer>
+      <%# /Footer %>
+
+    </div>
+
+    <%= javascript_importmap_tags %>
+    <script src="<%= asset_path("coreui.bundle.min.js") %>"></script>
+    <%= yield :scripts %>
+  </body>
+</html>
