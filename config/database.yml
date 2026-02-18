@@ -58,4 +58,5 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= Rails.application.credentials.dig(:database, :url) %>
+
