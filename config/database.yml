@@ -58,6 +58,4 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: forge_imobiliaria_production
-    username: forge_imobiliaria
-    password: <%= ENV["FORGE_IMOBILIARIA_DATABASE_PASSWORD"] %>
+    url: <%= ENV["DATABASE_URL"] %>
