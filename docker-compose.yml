@@ -20,7 +20,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: bash -c "bundle exec rails db:prepare && ./bin/rails server -b 0.0.0.0"
+    command: bash -c "bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0"
     volumes:
       - .:/rails
       - bundle_cache:/usr/local/bundle
@@ -30,7 +30,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://forge:forge@db:5551/forge_imobiliaria_development
+      DATABASE_URL: postgresql://forge:forge@db/forge_imobiliaria_development
       RAILS_ENV: development
       BOOTSNAP_CACHE_DIR: /usr/local/bundle/bootsnap
 

@@ -2,38 +2,55 @@
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= content_for(:title).presence || "Forge Imobiliária" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "coreui.min.css", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "coreui-icons.min.css", "data-turbo-track": "reload" %>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="https://unpkg.com/@creative-tim-official/argon-dashboard@2.0.4/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="https://unpkg.com/@creative-tim-official/argon-dashboard@2.0.4/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+    <!-- Argon Dashboard CSS -->
+    <link href="https://unpkg.com/@creative-tim-official/argon-dashboard@2.0.4/assets/css/argon-dashboard.min.css" rel="stylesheet" />
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= yield :head %>
   </head>
 
-  <body class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center"
+  <body class="bg-gray-200"
         data-controller="notifications"
         data-notifications-notice-value="<%= notice.to_s %>"
         data-notifications-alert-value="<%= alert.to_s %>">
 
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-7">
-
-          <div class="text-center mb-4">
-            <h1 class="h3 fw-bold">Forge Imobiliária</h1>
+    <main class="main-content mt-0">
+      <div class="page-header align-items-start min-vh-100">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container my-auto">
+          <div class="row">
+            <div class="col-lg-4 col-md-8 col-12 mx-auto">
+              <div class="card z-index-0 fadeIn3 fadeInBottom">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                  <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Forge Imobiliária</h4>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <%= yield %>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <%= yield %>
-
         </div>
       </div>
-    </div>
+    </main>
 
     <%= javascript_importmap_tags %>
-    <script src="<%= asset_path("coreui.bundle.min.js") %>"></script>
+    <script src="https://unpkg.com/@creative-tim-official/argon-dashboard@2.0.4/assets/js/core/popper.min.js"></script>
+    <script src="https://unpkg.com/@creative-tim-official/argon-dashboard@2.0.4/assets/js/core/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/@creative-tim-official/argon-dashboard@2.0.4/assets/js/argon-dashboard.min.js"></script>
     <%= yield :scripts %>
   </body>
 </html>

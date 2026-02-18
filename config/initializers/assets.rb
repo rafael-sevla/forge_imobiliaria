@@ -8,9 +8,5 @@ Rails.application.config.assets.paths << Rails.root.join("vendor/assets/styleshe
 Rails.application.config.assets.paths << Rails.root.join("vendor/assets/javascripts")
 Rails.application.config.assets.paths << Rails.root.join("vendor/assets/fonts")
 
-# Precompile vendor assets
-Rails.application.config.assets.precompile += %w[
-  coreui.min.css
-  coreui-icons.min.css
-  coreui.bundle.min.js
-]
+# No vendor assets to precompile (Argon Dashboard loaded via CDN)
+
