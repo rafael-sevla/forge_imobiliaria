@@ -15,21 +15,19 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  max_connections: <%= ENV.fetch("DB_MAX_CONNECTIONS", 5) %>
+  max_connections: <%= Rails.application.credentials.dig(:database, :max_connections) || 5 %>
 
 
 development:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] || Rails.application.credentials.dig(:database, :url) %>
+  url: <%= Rails.application.credentials.dig(:database, :url) %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  url: <%= Rails.application.credentials.dig(:database, :url)&.sub("_development", "_test") %>
+  url: <%= Rails.application.credentials.dig(:database, :url) %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -63,15 +61,3 @@ production:
     database: forge_imobiliaria_production
     username: forge_imobiliaria
     password: <%= ENV["FORGE_IMOBILIARIA_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: forge_imobiliaria_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: forge_imobiliaria_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: forge_imobiliaria_production_cable
-    migrations_paths: db/cable_migrate
